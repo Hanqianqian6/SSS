@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#listnum li{
+				list-style: none;
+				float: left;
+				padding: 8px 12px;
+				border: 1px solid #ccc;
+				margin: 0 10px;
+			}
+			#listtext{
+				min-height: 400px;
+			}
+			img{
+				height: 130px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="listtext">
+			<!--每页的信息-->
+			
+		</div>
+		<div>
+			<!--页码-->
+			<ul id="listnum">
+				
+			</ul> 
+		</div>
+	</body>
+	<script src="jquery-2.1.0.js"></script>
+	<script>
+		$.ajax({
+			type:"post",
+			url:"http://localhost:8001",
+			data:{
+				num:3
+			},
+			success(data){
+				var str = ''
+			for(var i=0;i<data;i++){
+				str+=` 
+				  <li onclick="list_text(${i})">${i+1}</li>
+				`
+			}
+			listnum.innerHTML = str
+			}
+		});
+		list_text(0)
+		function list_text(a){
+			$.ajax({
+			type:"get",
+			url:"http://localhost:8000",
+			data:{
+				num:3,
+				index:a
+			},
+			success(data){
+				var json = JSON.parse(data)
+				var str = '' 
+		    for(var i=0;i<json.length;i++){
+		    	str+=`
+		    	 <div>
+		    	   <img src="${json[i].url}">
+		    	 </div>
+		    	`
+		    }
+		    listtext.innerHTML = str
+				}
+		});
+		}
+	</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#listnum li{
+				list-style: none;
+				float: left;
+				padding: 8px 12px;
+				border: 1px solid #ccc;
+				margin: 0 10px;
+			}
+			#listtext{
+				min-height: 400px;
+			}
+			img{
+				height: 130px;
+			}
+		</style>
+			
+	</head>
+	<body>
+		<div id="listtext">
+			<!--每页的信息-->
+			
+		</div>
+		<div>
+			<!--页码-->
+			<ul id="listnum">
+				
+			</ul> 
+		</div>
+		<div id="text">
+			
+		</div>
+	</body>
+	<script src="jquery-2.1.0.js"></script>
+	<script>
+		var ajax_list_arr = ''
+		$.ajax({
+			type:"get",
+			url:"https://www.apiopen.top/meituApi?page=1",
+			success(data){
+				list_num(data.data)
+				ajax_list_arr = data.data
+				imglist(0,data.data)
+			}
+		});
+		
+		function imglist(a,data){
+		   
+		   var num = a
+		    var newarr = data.slice(num*3,num*3+3)
+		    var str = '' 
+		    for(var i=0;i<newarr.length;i++){
+		    	str+=`
+		    	 <div>
+		    	   <img src="${newarr[i].url}">
+		    	 </div>
+		    	`
+		    }
+		    listtext.innerHTML = str
+		}
+		
+		function list_num(data){
+			var num = Math.ceil(data.length/3)   
+			var str = ''
+			for(var i=0;i<num;i++){
+				str+=` 
+				  <li onclick="clicknum(${i})">${i+1}</li>
+				`
+			}
+			listnum.innerHTML = str
+		}
+		function clicknum(a){
+			imglist(a,ajax_list_arr)
+		}
+	</script>
+</html>
+
+
+
+
+
+
+

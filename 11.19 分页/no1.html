@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" name="text" id="text"/><button id="btn">点击</button>
+		<div id="box">
+			你看得见事故爱苏福阿佛年顺丰票数发
+			<p>安保费高飞俺不是发过</p>
+			<p>好几个是发放哦你按时发哦啊是否哦爱苏福</p>
+		</div>
+	</body>
+	<script>
+		btn.onclick = function(){
+			var str = text.value
+			var htmlstr = box.innerHTML
+			
+			var htmlarr = htmlstr.split(str)
+			var strhtml = htmlarr.join('<span style="color:red;">'+str+'</span>')
+			box.innerHTML = strhtml
+//			console.log(strhtml)
+		}
+	</script>
+</html>
